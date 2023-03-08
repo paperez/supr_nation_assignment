@@ -4,12 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ExpressionEvaluatorComponent } from './components/expression-evaluator/expression-evaluator.component';
+import { CalculatorComponent } from './components/calculator/calculator.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ExpressionEvaluatorComponent
+    CalculatorComponent
   ],
   imports: [
     BrowserModule,
