@@ -1,17 +1,8 @@
-<!-- <div>TASK C - Calculator</div>
-<app-calculator></app-calculator>
-<div>**************************************************</div>
-<div>TASK D - Supr Calculator</div> -->
-
 <h1>SuprNation Test Assignment</h1>
-<!-- This nav gives you links to click, which tells the router which route to use (defined in the routes constant in  AppRoutingModule) -->
-<nav>
-  <ul>
-    <li><a routerLink="/calculator">Task C - Calculator</a></li>
-    <li><a routerLink="/supr-calculator">Task D - Supr Calculator</a></li>
-  </ul>
+<nav class="nav-container">
+  <a routerLink="/calculator">Task C - Calculator</a>
+  <a routerLink="/supr-calculator">Task D - Supr Calculator</a>
 </nav>
-<!-- The routed views render in the <router-outlet>-->
-<router-outlet></router-outlet>
-
-<!-- <app-supr-calculator></app-supr-calculator> -->
+<div class="main">
+    <router-outlet></router-outlet>
+</div>

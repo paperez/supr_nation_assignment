@@ -1,0 +1,26 @@
+.supr-calculator-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .supr-calculator-input-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    .keyboard-container {
+        display: flex;
+        .digits-container {
+    
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        .operations-container {
+    
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+}

@@ -1,24 +1,35 @@
-<div [formGroup]="form" class="expression-form">
-    <label for="expression">
-        Expression
-    </label>
-    <input class="expression-input" id="expression" formControlName="expression">
-    <div *ngIf="expression?.hasError('invalidExpression')">
-        The expression is not correct
+<div class="calculator-container">
+
+    <div [formGroup]="form" class="expression-form-container">
+        <div class="input-container">
+            <input class="expression-input" id="expression" formControlName="expression">
+            <div *ngIf="allowErrorDisplay && expression?.hasError('invalidExpression')" class="error-message">
+                The expression is not correct
+            </div>
+            <button (click)="addResultToList()">Add result to list</button>
+        </div>
+        <div class="result-container" *ngIf="!expression?.hasError('invalidExpression')">
+            <div>Result:</div>
+            <div>{{ result | async }}</div>
+        </div>
     </div>
-    <div *ngIf="!expression?.hasError('invalidExpression')">
-        <div>{{ result | async }}</div>
+    
+    
+    <div class="expression-list">
+        <div>Latest 5 expressions</div>
+        <table class="latest-results-table">
+            <thead class="">
+                <tr>
+                  <th>Expression</th>
+                  <th>Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of filteredExpressionList">
+                    <td>{{item.expression}}</td>
+                    <td>{{item.result | number:'0.0-2'}}</td>
+                </tr>
+              </tbody>
+        </table>
     </div>
-    <button (click)="addResultToList()">Add result to list</button>
 </div>
-
-
-<div class="expression-list">
-    Latest 5 results
-    <div *ngFor="let item of filteredExpressionList" class="expression-row">
-        <p>{{item.expression}}</p>
-        <p>{{item.result}}</p>
-    </div>
-</div>
-
-<!-- <button (click)="evaluateClick()">Evaluate</button> -->

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ValidationErrors, AbstractControl, ValidatorFn, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import { ExpressionEvaluatorService } from 'src/app/services/expression-evaluator/expression-evaluator.service';
 import { Constants } from 'src/app/app.constants';
 import { IExpressionForm, IExpressionListItem } from 'src/app/model/model';
@@ -15,6 +15,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
 
   form: FormGroup<IExpressionForm>;
   result!: Observable<number>;
+  allowErrorDisplay: boolean = false;
 
   expressionList: IExpressionListItem[] = []; 
   filteredExpressionList: IExpressionListItem[] = []; 
@@ -37,6 +38,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.result = this._expressionEvaluator.expressionEvalObs$;
     this.form.get('expression')?.valueChanges.pipe(
+      tap(() => this.allowErrorDisplay = true),
       takeUntil(this._destroy),
     ).subscribe();
   }
@@ -61,6 +63,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
     );
     this.filteredExpressionList = this.expressionList.slice(0, Constants.MAX_LIST_NUM_ITEMS);
     this.form.get('expression')?.setValue('');
+    this.allowErrorDisplay = false;
   }
 
   get expression() {
