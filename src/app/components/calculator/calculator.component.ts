@@ -1,10 +1,17 @@
+import {Observable} from 'rxjs';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ValidationErrors, AbstractControl, ValidatorFn, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Subject, takeUntil, map } from 'rxjs';
 import { ExpressionEvaluatorService } from 'src/app/services/expression-evaluator/expression-evaluator.service';
+import { Constants } from 'src/app/app.constants';
 
 interface IExpressionForm {
   expression: FormControl<string | null>;
+}
+
+interface IExpressionListItem {
+  expression: string;
+  result: number;
 }
 
 @Component({
@@ -15,7 +22,10 @@ interface IExpressionForm {
 export class CalculatorComponent implements OnInit, OnDestroy {
 
   form: FormGroup<IExpressionForm>;
-  result: number = 0;
+  result!: Observable<number>;;
+
+  expressionList: IExpressionListItem[] = []; 
+  filteredExpressionList: IExpressionListItem[] = []; 
   private _destroy: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -33,10 +43,10 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.result = this._expressionEvaluator.expressionEvalObs$;
     this.form.get('expression')?.valueChanges.pipe(
-      map(s => this._expressionEvaluator.evaluateMathExpression(s as string)),
       takeUntil(this._destroy),
-    ).subscribe(res => (this.result = res));
+    ).subscribe();
   }
 
   ngOnDestroy(): void {
@@ -48,6 +58,16 @@ export class CalculatorComponent implements OnInit, OnDestroy {
     return (control: AbstractControl): ValidationErrors | null => {
       return this._expressionEvaluator.isExpressionValid(control.value) ? null : { invalidExpression: true };
     }
+  }
+
+  addResultToList() {
+    this.expressionList.unshift(
+      {
+        result: this._expressionEvaluator.getResult(),
+        expression: this.expression?.value as string,
+      }
+    );
+    this.filteredExpressionList = this.expressionList.slice(0, Constants.MAX_LIST_NUM_ITEMS)
   }
 
   get expression() {

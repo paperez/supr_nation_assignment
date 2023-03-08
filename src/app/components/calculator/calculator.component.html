@@ -1,4 +1,4 @@
-<div [formGroup]="form">
+<div [formGroup]="form" class="expressio-form">
     <label for="expression">
         Expression
     </label>
@@ -7,7 +7,17 @@
         The expression is not correct
     </div>
     <div *ngIf="!expression?.hasError('invalidExpression')">
-        <div>{{ result }}</div>
+        <div>{{ result | async }}</div>
+    </div>
+    <button (click)="addResultToList()">Add result to list</button>
+</div>
+
+
+<div class="expression-list">
+    Latest 5 results
+    <div *ngFor="let item of filteredExpressionList" class="expression-row">
+        <p>{{item.expression}}</p>
+        <p>{{item.result}}</p>
     </div>
 </div>
 

@@ -1,0 +1,9 @@
+.expression-list {
+    display: flex;
+    flex-direction: column;
+
+    .expression-row {
+        display: flex;
+        flex-direction: row;
+    }
+}
