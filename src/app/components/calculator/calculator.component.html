@@ -3,6 +3,12 @@
         Expression
     </label>
     <input class="expression-input" id="expression" formControlName="expression">
+    <div *ngIf="expression?.hasError('invalidExpression')">
+        The expression is not correct
+    </div>
+    <div *ngIf="!expression?.hasError('invalidExpression')">
+        <div>{{ result }}</div>
+    </div>
 </div>
 
 <!-- <button (click)="evaluateClick()">Evaluate</button> -->
