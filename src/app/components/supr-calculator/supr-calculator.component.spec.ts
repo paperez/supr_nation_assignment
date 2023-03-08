@@ -1,3 +1,4 @@
+import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -10,7 +11,10 @@ describe('SuprCalculatorComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ SuprCalculatorComponent ],
-      imports: [HttpClientTestingModule]
+      imports: [
+        HttpClientTestingModule,
+        ReactiveFormsModule,
+      ]
     })
     .compileComponents();
 
