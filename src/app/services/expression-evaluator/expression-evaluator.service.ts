@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Constants } from '../app.constants';
-import { degreesToRadians } from '../app.utils';
+import { Constants } from '../../app.constants';
+import { degreesToRadians } from '../../app.utils';
 
 @Injectable({
   providedIn: 'root'
