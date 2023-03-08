@@ -1,18 +1,10 @@
-import {Observable} from 'rxjs';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ValidationErrors, AbstractControl, ValidatorFn, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Subject, takeUntil, map } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { ExpressionEvaluatorService } from 'src/app/services/expression-evaluator/expression-evaluator.service';
 import { Constants } from 'src/app/app.constants';
+import { IExpressionForm, IExpressionListItem } from 'src/app/model/model';
 
-interface IExpressionForm {
-  expression: FormControl<string | null>;
-}
-
-interface IExpressionListItem {
-  expression: string;
-  result: number;
-}
 
 @Component({
   selector: 'app-calculator',
@@ -22,7 +14,7 @@ interface IExpressionListItem {
 export class CalculatorComponent implements OnInit, OnDestroy {
 
   form: FormGroup<IExpressionForm>;
-  result!: Observable<number>;;
+  result!: Observable<number>;
 
   expressionList: IExpressionListItem[] = []; 
   filteredExpressionList: IExpressionListItem[] = []; 
@@ -67,7 +59,8 @@ export class CalculatorComponent implements OnInit, OnDestroy {
         expression: this.expression?.value as string,
       }
     );
-    this.filteredExpressionList = this.expressionList.slice(0, Constants.MAX_LIST_NUM_ITEMS)
+    this.filteredExpressionList = this.expressionList.slice(0, Constants.MAX_LIST_NUM_ITEMS);
+    this.form.get('expression')?.setValue('');
   }
 
   get expression() {

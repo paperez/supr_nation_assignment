@@ -1,3 +1,4 @@
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SuprCalculatorComponent } from './supr-calculator.component';
@@ -8,7 +9,8 @@ describe('SuprCalculatorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SuprCalculatorComponent ]
+      declarations: [ SuprCalculatorComponent ],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
 
