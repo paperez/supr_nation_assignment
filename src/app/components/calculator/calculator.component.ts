@@ -45,13 +45,10 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   }
 
   mathExpressionValidator(): ValidatorFn {
-
     return (control: AbstractControl): ValidationErrors | null => {
       return this._expressionEvaluator.isExpressionValid(control.value) ? null : { invalidExpression: true };
     }
   }
-
-
 
   get expression() {
     return this.form.get('expression');
